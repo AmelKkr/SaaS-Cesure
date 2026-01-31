@@ -1,10 +1,10 @@
 "use client";
 
+import { Suspense, useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
-export default function DashboardPage() {
+function DashboardContent() {
   const { user } = useAuth();
   const searchParams = useSearchParams();
   const [checkoutStatus, setCheckoutStatus] = useState<string | null>(null);
@@ -46,5 +46,13 @@ export default function DashboardPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<p className="text-stone-500">Chargement...</p>}>
+      <DashboardContent />
+    </Suspense>
   );
 }
